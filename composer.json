@@ -1,0 +1,20 @@
+{
+  "name": "nick/finance",
+  "authors": [
+    {
+      "name": "Nick Spelt",
+      "email": "nickstr@nickstr.nl"
+    }
+  ],
+  "require": {
+    "phpspec/phpspec": "dev-master",
+    "nesbot/carbon": "^1.20",
+    "ramsey/uuid": "^2.8",
+    "illuminate/support": "^5.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Teller\\": "src/"
+    }
+  }
+}
