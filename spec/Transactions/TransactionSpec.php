@@ -2,8 +2,11 @@
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Rhumsaa\Uuid\Uuid;
 use Teller\Accounts\Account;
+use Teller\EventSourcing\Stream;
 use Teller\Transactions\Transaction;
+use Teller\Transactions\TransactionWasCreated;
 
 class TransactionSpec extends ObjectBehavior
 {
@@ -36,5 +39,17 @@ class TransactionSpec extends ObjectBehavior
 
     function it_can_return_a_transaction_type() {
         $this->type()->shouldReturn("Internetbankieren");
+    }
+
+    function it_can_be_created_from_a_stream() {
+        $stream = new Stream();
+        $stream->addEvent(new TransactionWasCreated(Uuid::uuid4(), '20150730',
+            'This is a shorter description that is really long',
+            '1234567890',
+            '0987654321',
+            "GT",
+            "This is a description")
+        );
+        $this->replay($stream)->shouldHaveType(Transaction::class);
     }
 }
