@@ -1,6 +1,7 @@
 <?php namespace Teller\Transactions;
 
 use Teller\Accounts\Account;
+use Teller\Categories\Category;
 use Teller\EventSourcing\Event;
 use Teller\EventSourcing\Stream;
 
@@ -30,6 +31,8 @@ class Transaction
      * @var Description
      */
     private $description;
+
+    private $categories;
 
     private function __construct(Id $id, Date $date, Account $from, Account $to, Code $code, Description $description)
     {
@@ -73,6 +76,10 @@ class Transaction
         return $this->code->description();
     }
 
+    public function getCategories() {
+        return $this->categories;
+    }
+
     public function replay(Stream $stream)
     {
         /** @var Event $event */
@@ -85,6 +92,10 @@ class Transaction
                     $this->to = Account::withName($event->getTo(), $event->getName());
                     $this->code = Code::fromString($event->getCode());
                     $this->description = Description::fromString($event->getDescription());
+                    break;
+                case TransactionWasAttachedToCategory::class:
+                    $this->categories[] = $event->getCategoryId();
+                    break;
             }
         }
         return $this;
