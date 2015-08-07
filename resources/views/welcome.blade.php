@@ -38,7 +38,11 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <form action="/upload-csv" method="POST" enctype="multipart/form-data">
+                    <input name="csv" type="file">
+                    <?php echo csrf_field(); ?>
+                    <input type="submit">
+                </form>
             </div>
         </div>
     </body>

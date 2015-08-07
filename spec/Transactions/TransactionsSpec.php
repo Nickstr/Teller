@@ -17,6 +17,7 @@ class TransactionsSpec extends ObjectBehavior {
             '1234567890',
             '0987654321',
             "GT",
+            "30,00",
             "This is a description")
         );
         $this->totalTransactions()->shouldBe(1);
@@ -28,6 +29,7 @@ class TransactionsSpec extends ObjectBehavior {
             '1234567890',
             '0987654321',
             "GT",
+            "30,00",
             "This is a description")
         );
         $this->transactionsTo(Account::fromNumber("0987654321"))->count()->shouldBe(1);

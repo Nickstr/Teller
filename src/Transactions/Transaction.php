@@ -33,8 +33,12 @@ class Transaction
     private $description;
 
     private $categories;
+    /**
+     * @var Amount
+     */
+    private $amount;
 
-    private function __construct(Id $id, Date $date, Account $from, Account $to, Code $code, Description $description)
+    private function __construct(Id $id, Date $date, Account $from, Account $to, Code $code, Amount $amount, Description $description)
     {
         $this->id = $id;
         $this->date = $date;
@@ -42,9 +46,10 @@ class Transaction
         $this->to = $to;
         $this->code = $code;
         $this->description = $description;
+        $this->amount = $amount;
     }
 
-    public static function createNew($date, $name, $from, $to, $code, $description)
+    public static function createNew($date, $name, $from, $to, $code, $amount, $description)
     {
         return new static(
             Id::generate(),
@@ -52,6 +57,7 @@ class Transaction
             Account::fromNumber($from),
             Account::withName($name, $to),
             Code::fromString($code),
+            Amount::fromString($amount),
             Description::fromString($description)
         );
     }
@@ -91,6 +97,7 @@ class Transaction
                     $this->from = Account::fromNumber($event->getFrom());
                     $this->to = Account::withName($event->getTo(), $event->getName());
                     $this->code = Code::fromString($event->getCode());
+                    $this->amount = Amount::fromString($event->getAmount());
                     $this->description = Description::fromString($event->getDescription());
                     break;
                 case TransactionWasAttachedToCategory::class:

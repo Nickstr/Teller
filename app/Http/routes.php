@@ -1,16 +1,28 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+use Illuminate\Bus\Dispatcher;
+use League\Csv\Reader;
+
+use Illuminate\Http\Request;
+use Teller\Transactions\Commands\CreateTransaction;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::post('upload-csv', function(Request $input, Dispatcher $bus) {
+    $reader = Reader::createFromPath($input->file('csv'));
+    $transactions = $reader->setOffset(1)->fetchAll();
+
+    foreach($transactions as $transaction) {
+        $bus->dispatch(new CreateTransaction(
+            $transaction[0],
+            $transaction[1],
+            $transaction[2],
+            $transaction[3],
+            $transaction[4],
+            $transaction[5]
+        ));
+        dd($transaction);
+    }
 });

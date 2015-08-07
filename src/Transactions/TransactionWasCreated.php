@@ -32,8 +32,12 @@ class TransactionWasCreated implements Event {
      * @var
      */
     private $name;
+    /**
+     * @var
+     */
+    private $amount;
 
-    public function __construct($id, $date, $name, $from, $to, $code, $description) {
+    public function __construct($id, $date, $name, $from, $to, $code, $amount, $description) {
         $this->id = $id;
         $this->name = $name;
         $this->date = $date;
@@ -41,6 +45,7 @@ class TransactionWasCreated implements Event {
         $this->to = $to;
         $this->code = $code;
         $this->description = $description;
+        $this->amount = $amount;
     }
 
     public function getStreamId() {
@@ -104,5 +109,13 @@ class TransactionWasCreated implements Event {
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAmount()
+    {
+        return $this->amount;
     }
 }
