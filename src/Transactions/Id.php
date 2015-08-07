@@ -1,6 +1,6 @@
 <?php namespace Teller\Transactions;
 
-use Teller\AggregateId;
+use Teller\EventSourcing\AggregateId;
 
 class Id extends AggregateId {
 }

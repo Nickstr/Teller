@@ -22,18 +22,6 @@ class CategoryWasCreated implements Event {
         $this->type = $type;
     }
 
-    /** @return string */
-    public function getStreamId()
-    {
-        // TODO: Implement getStreamId() method.
-    }
-
-    /** @return array */
-    public function getData()
-    {
-        // TODO: Implement getData() method.
-    }
-
     /**
      * @return mixed
      */
@@ -56,5 +44,17 @@ class CategoryWasCreated implements Event {
     public function getType()
     {
         return $this->type;
+    }
+
+    /** @return string */
+    public function getStreamId()
+    {
+        // TODO: Implement getStreamId() method.
+    }
+
+    /** @return array */
+    public function getData()
+    {
+        // TODO: Implement getData() method.
     }
 }

@@ -1,3 +1,8 @@
 vendor
 .ds_store
 .idea
+ansible
+.vagrant
+/node_modules
+Homestead.yaml
+.env

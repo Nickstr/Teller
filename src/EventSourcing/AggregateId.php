@@ -1,4 +1,4 @@
-<?php namespace Teller;
+<?php namespace Teller\EventSourcing;
 
 use Rhumsaa\Uuid\Uuid;
 
