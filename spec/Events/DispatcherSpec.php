@@ -14,13 +14,13 @@ class DispatcherSpec extends ObjectBehavior {
     function it_can_register_listeners($event, $listener) {
         $event->beADoubleOf(Event::class);
         $listener->beADoubleOf(Listener::class);
-        $this->register($event, $listener);
+        $this->register(get_class($event), $listener);
     }
 
     function it_can_dispatch_a_event($event, $listener) {
         $event->beADoubleOf(Event::class);
         $listener->beADoubleOf(Listener::class);
-        $this->register($event, $listener);
+        $this->register(get_class($event), $listener);
         $this->dispatch($event);
         $listener->handle($event)->shouldBeCalled();
     }
@@ -28,8 +28,8 @@ class DispatcherSpec extends ObjectBehavior {
     function it_can_dispatch_multiple_event($event, $listener) {
         $event->beADoubleOf(Event::class);
         $listener->beADoubleOf(Listener::class);
-        $this->register($event, $listener);
+        $this->register(class_implements($event), $listener);
         $this->dispatch($event, $event);
-        $listener->handle($event)->shouldBeCalled();
+        $listener->handle($event)->shouldBeCalled(2);
     }
 }

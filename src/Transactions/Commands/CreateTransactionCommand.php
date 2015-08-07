@@ -2,7 +2,7 @@
 
 use Teller\Commands\Command;
 
-class CreateTransaction implements Command {
+class CreateTransactionCommand implements Command {
     /**
      * @var
      */

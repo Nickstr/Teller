@@ -4,18 +4,19 @@ use League\Csv\Reader;
 
 use Illuminate\Http\Request;
 use Teller\Commands\Bus;
-use Teller\Transactions\Commands\CreateTransaction;
+use Teller\Events\Dispatcher;
+use Teller\Transactions\Commands\CreateTransactionCommand;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('upload-csv', function(Request $input, Bus $bus) {
+Route::post('upload-csv', function(Request $input, Bus $bus, Dispatcher $dispatcher) {
     $reader = Reader::createFromPath($input->file('csv'));
     $transactions = $reader->setOffset(1)->fetchAll();
 
     foreach($transactions as $transaction) {
-        $bus->dispatch(new CreateTransaction(
+        $event = $bus->dispatch(new CreateTransactionCommand(
             $transaction[0],
             $transaction[1],
             $transaction[2],
@@ -24,6 +25,7 @@ Route::post('upload-csv', function(Request $input, Bus $bus) {
             $transaction[6],
             $transaction[8]
         ));
-        dd($transaction);
+        $dispatcher->dispatch($event);
     }
+
 });

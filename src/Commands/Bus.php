@@ -8,7 +8,7 @@ class Bus {
     }
 
     public function dispatch(Command $command) {
-        $this->getHandler($command)->handle($command);
+        return $this->getHandler($command)->handle($command);
     }
 
     private function getHandler(Command $command) {

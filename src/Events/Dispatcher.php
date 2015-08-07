@@ -5,8 +5,8 @@ use Teller\EventSourcing\Event;
 class Dispatcher {
     private $listeners = [];
 
-    public function register(Event $event, Listener $listener) {
-        $this->listeners[get_class($event)][] = $listener;
+    public function register($event, Listener $listener) {
+        $this->listeners[$event][] = $listener;
     }
 
     public function dispatch(Event...$events) {

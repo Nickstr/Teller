@@ -26,8 +26,8 @@ class TransactionsSpec extends ObjectBehavior {
     function it_should_filter_on_to_account() {
         $this->addTransaction(Transaction::createNew('20150730',
             'This is a shorter description that is really long',
-            '1234567890',
             '0987654321',
+            '1234567890',
             "GT",
             "30,00",
             "This is a description")
