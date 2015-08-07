@@ -1,5 +1,7 @@
 <?php
 
+use Teller\Commands\CommandHandlerServiceProvider;
+
 return [
 
     /*
@@ -143,6 +145,8 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        CommandHandlerServiceProvider::class
 
     ],
 

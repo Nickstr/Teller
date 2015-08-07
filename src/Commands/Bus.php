@@ -3,8 +3,8 @@
 class Bus {
     private $handlers = [];
 
-    public function register(Command $command, Handler $handler) {
-        $this->handlers[get_class($command)] = $handler;
+    public function register($command, Handler $handler) {
+        $this->handlers[$command] = $handler;
     }
 
     public function dispatch(Command $command) {

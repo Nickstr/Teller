@@ -15,13 +15,13 @@ class BusSpec extends ObjectBehavior {
     function it_can_register_a_handler($command, $handler) {
         $command->beADoubleOf(Command::class);
         $handler->beADoubleOf(Handler::class);
-        $this->register($command, $handler);
+        $this->register(get_class($command), $handler);
     }
 
     function it_can_dispatch_a_command($command, $handler) {
         $command->beADoubleOf(Command::class);
         $handler->beADoubleOf(Handler::class);
-        $this->register($command, $handler);
+        $this->register(get_class($command), $handler);
         $this->dispatch($command);
         $handler->handle($command)->shouldBeCalled();
     }
@@ -30,7 +30,7 @@ class BusSpec extends ObjectBehavior {
         $command->beADoubleOf(Command::class);
         $secondCommand->beADoubleOf(Command::class);
         $handler->beADoubleOf(Handler::class);
-        $this->register($command, $handler);
+        $this->register(get_class($command), $handler);
         $this->shouldThrow(HandlerForCommandNotFound::class)->duringdispatch($secondCommand);
     }
 }
